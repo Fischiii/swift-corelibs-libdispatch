@@ -155,7 +155,8 @@ main(void)
 			dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
 		while (handler_call_count < NOTIFICATIONS &&
 				page_count < max_page_count) {
-			void *p = memalign(sysconf(_SC_PAGESIZE), ALLOC_SIZE);
+			void *p;
+			posix_memalign(p, (size_t)sysconf(_SC_PAGESIZE), ALLOC_SIZE);
 			if (!p) {
 				break;
 			}
