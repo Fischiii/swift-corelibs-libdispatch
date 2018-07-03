@@ -2219,7 +2219,7 @@ _dispatch_operation_perform(dispatch_operation_t op)
 			} else {
 				op->buf_siz = max_buf_siz;
 			}
-			op->buf = valloc(op->buf_siz);
+			op->buf = memalign(sysconf(_SC_PAGESIZE), op->buf_siz);
 			_dispatch_op_debug("buffer allocated", op);
 		} else if (op->direction == DOP_DIR_WRITE) {
 			// Always write the first data piece, if that is smaller than a
